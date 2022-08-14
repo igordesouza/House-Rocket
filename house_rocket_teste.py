@@ -52,7 +52,9 @@ def get_geofile(url):
     geofile = geopandas.read_file(url)
     return geofile
 
-
+st.write('''
+# Testando o Markdown
+''')
 # get data
 path = 'datasets/kc_house_data.csv'
 data = get_data(path)
