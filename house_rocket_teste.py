@@ -218,12 +218,13 @@ from sklearn import metrics
 from sklearn.model_selection import cross_val_score
 import matplotlib.pyplot as plt
 import seaborn as sns
-from mpl_toolkits.mplot3d import Axes3D
+#from mpl_toolkits.mplot3d import Axes3D
 import folium
 from folium.plugins import HeatMap
+import pickle
 #%matplotlib inline
-import warnings
-warnings.filterwarnings('ignore')
+#import warnings
+#warnings.filterwarnings('ignore')
 
 
 st.write(''' 
@@ -522,3 +523,84 @@ prediction = complex_model_1.predict(df)
 st.header('Prediction of Price')
 st.write(prediction)
 st.write('---')
+
+
+
+# Print specified input parameters
+st.header('Specified Input parameters')
+st.write(df)
+st.write('---')
+
+# Build Regression Model
+from sklearn.ensemble import RandomForestRegressor
+model = RandomForestRegressor()
+
+#complex_model_1.fit(train_data_dm[features],train_data_dm['price'])
+features = ['bedrooms','bathrooms','sqft_living','sqft_lot','floors','zipcode']
+
+X = train_data_dm[features]
+Y = train_data_dm['price']
+
+model.fit(X, Y)
+# Apply Model to Make Prediction
+prediction = model.predict(df)
+
+st.header('Prediction of Random Forest')
+st.write(prediction)
+st.write('---')
+
+# XGBOOST
+from xgboost import XGBRegressor, plot_importance # XGBoost
+xgb = XGBRegressor(n_estimators=100, learning_rate=0.08, gamma=0, subsample=0.75,
+                           colsample_bytree=1, max_depth=7)
+
+xgb.fit(X,Y)
+# Apply Model to Make Prediction
+prediction = xgb.predict(df)
+
+st.header('Prediction of XGB')
+st.write(prediction)
+st.write('---')
+
+st.write(df.zipcode)
+st.write(df_dm.loc[df_dm.zipcode==98077])
+price = df_dm.loc[df_dm.zipcode==98077,'price'].median()
+sqft_lot = df_dm.loc[df_dm.zipcode==98077,'sqft_lot'].median()
+sqft_living = df_dm.loc[df_dm.zipcode==98077,'sqft_living'].median()
+
+st.write(f'Price/sqft_lot = {price/sqft_lot}')
+st.write(f'Price/sqft_living = {price/sqft_living}')
+
+
+#st.write(df_dm.loc[df_dm.zipcode==df.zipcode])
+# # Reads in saved classification model
+# model = pickle.load(open('house-rocket-model.pkl', 'rb'))
+
+# dicionario = {
+#     'bedrooms': 3,
+#     'bathrooms': 3,
+#     'sqft_living': 2000,
+#     'sqft_lot': 15106,
+#     'floors': df.floors.median(), 
+#     'waterfront': 0,
+#     'view': 0,
+#     'condition': df_dm.condition.median(),
+#     'grade': df_dm.grade.median(),
+#     'sqft_above': df_dm.sqft_above.median(),
+#     'sqft_basement': df_dm.sqft_basement.median(),
+#     'yr_built': df_dm.yr_built.median(),
+#     'yr_renovated': df_dm.yr_renovated.median(),
+#     'zipcode': df_dm.zipcode.median(),
+#     'lat': df_dm.lat.median(),
+#     'long': df_dm.long.median(),
+#     'sqft_living15': df_dm.sqft_living15.median(),
+#     'sqft_lot15': df_dm.sqft_lot15.median()
+#     }
+# ind = np.arange[18]
+# dicionario_df = pd.DataFrame(dicionario, index=ind)
+# # Apply Model to Make Prediction
+# prediction = model.predict(dicionario_df)
+
+# st.header('Prediction of PRED3 ')
+# st.write(prediction)
+# st.write('---')
