@@ -22,7 +22,7 @@ st.set_page_config(page_title='KC HOUSE ENTERPRISE',
                    menu_items={
                        'Get Help': "https://www.google.com/?client=safari",
                        'Report a bug': "https://g1.globo.com",
-                       'About': "# Testando as mensagens do menu!"
+                       'About': "# Testando as mensviewns do menu!"
                    }
                    )
 
@@ -83,7 +83,7 @@ st.write('''
 # st.title('Data Overview')
 
 # # Condições para se ter uma melhor experiência na construção do dataframe
-# # filtrado pelo usuário
+# # filtgradeo pelo usuário
 # if (f_zipcode != []) & (f_attributes != []):
 #     data = data.loc[data.zipcode.isin(
 #         f_zipcode), f_attributes]
@@ -100,7 +100,7 @@ st.write('''
 # # Creating columns
 # c1, c2 = st.columns((1, 1))
 
-# # Average Metrics
+# # Averview Metrics
 # df1 = data[['id', 'zipcode']].groupby('zipcode').count().reset_index()
 # df2 = data[['price', 'zipcode']].groupby('zipcode').mean().reset_index()
 # df3 = data[['sqft_living', 'zipcode']].groupby('zipcode').mean().reset_index()
@@ -113,7 +113,7 @@ st.write('''
 
 # df.columns = ['ZIPCODE', 'TOTAL HOUSES', 'PRICE', 'SQRT LIVING', 'PRICE/M2']
 
-# c1.header('AVERAGE VALUES')
+# c1.header('AVERview VALUES')
 # c1.dataframe(df, height=600)
 
 # # Statistic Description
@@ -128,7 +128,7 @@ st.write('''
 # # st.write(media)
 # # st.write(mediana)
 
-# # dispersion - desvio-padrão, mínimo, máximo
+# # conditionpersion - desvio-padrão, mínimo, máximo
 # std = np.std(num_attributes)
 # min_ = np.min(num_attributes)
 # max_ = np.max(num_attributes)
@@ -251,20 +251,20 @@ def adjustedR2(r2,n,k):
 train_data,test_data = train_test_split(df,train_size = 0.8,random_state=3)
 
 lr = linear_model.LinearRegression()
-X_train = np.array(train_data['sqft_living'], dtype=pd.Series).reshape(-1,1)
+df_train = np.array(train_data['sqft_living'], dtype=pd.Series).reshape(-1,1)
 y_train = np.array(train_data['price'], dtype=pd.Series)
-lr.fit(X_train,y_train)
+lr.fit(df_train,y_train)
 
-X_test = np.array(test_data['sqft_living'], dtype=pd.Series).reshape(-1,1)
+df_test = np.array(test_data['sqft_living'], dtype=pd.Series).reshape(-1,1)
 y_test = np.array(test_data['price'], dtype=pd.Series)
 
-pred = lr.predict(X_test)
+pred = lr.predict(df_test)
 rmsesm = float(format(np.sqrt(metrics.mean_squared_error(y_test,pred)),'.3f'))
-rtrsm = float(format(lr.score(X_train, y_train),'.3f'))
-rtesm = float(format(lr.score(X_test, y_test),'.3f'))
+rtrsm = float(format(lr.score(df_train, y_train),'.3f'))
+rtesm = float(format(lr.score(df_test, y_test),'.3f'))
 cv = float(format(cross_val_score(lr,df[['sqft_living']],df['price'],cv=5).mean(),'.3f'))
 
-print ("Average Price for Test Data: {:.3f}".format(y_test.mean()))
+print ("Averview Price for Test Data: {:.3f}".format(y_test.mean()))
 print('Intercept: {}'.format(lr.intercept_))
 print('Coefficient: {}'.format(lr.coef_))
 
@@ -279,8 +279,8 @@ st.write('''## Let's Show the Result''')
 # plt.figure(figsize=(6.5,5))
 # plt.figure(figsize=(10,4))
 
-# plt.scatter(X_test,y_test,color='darkgreen',label="Data", alpha=.1)
-# plt.plot(X_test,lr.predict(X_test),color="red",label="Predicted Regression Line")
+# plt.scatter(df_test,y_test,color='darkgreen',label="Data", alpha=.1)
+# plt.plot(df_test,lr.predict(df_test),color="red",label="Predicted Regression Line")
 # plt.xlabel("Living Space (sqft)", fontsize=15)
 # plt.ylabel("Price ($)", fontsize=15)
 # plt.xticks(fontsize=13)
@@ -325,7 +325,7 @@ st.write('''## Let's Show the Result''')
 
 # st.pyplot(f)
 
-# st.write('''In this dataset, we have latitude and longtitude information for the houses. By using *lat* and *long* columns, I displayed the below heat map which is very useful for the people who does not know Seattle well. Also, if you select a spesific zip code, you may just see the heat map of this zip code's neighborhood.''')
+# st.write('''In this dataset, we have latitude and longtitude information for the houses. By using *lat* and *long* columns, I conditionplayed the below heat map which is very useful for the people who does not know Seattle well. Also, if you select a spesific zip code, you may just see the heat map of this zip code's neighborhood.''')
 
 # # find the row of the house which has the highest price
 # maxpr=df.loc[df['price'].idxmax()]
@@ -349,7 +349,7 @@ st.write('''## Let's Show the Result''')
 #               icon=folium.Icon(color='green')).add_to(s)
 # # add heatmap
 # HeatMap(data=df_copy[['lat','long','count']].groupby(['lat','long']).sum().reset_index().values.tolist(),
-#         radius=8,max_zoom=13,name='Heat Map').add_to(basemap)
+#         gradeius=8,max_zoom=13,name='Heat Map').add_to(basemap)
 # folium.LayerControl(collapsed=False).add_to(basemap)
 # folium_static(basemap)
 
@@ -360,7 +360,7 @@ st.write('''
 A preprocessing on data might improve the model accuracy and make the model more reliable. It does not always have to improve our results but when we are conscious of the features and use a proper input, we might reach some outcomes easier. I tried various data mining techniques like transformation or normalization but in the end, decided to just use binning and created a new dataframe called ***df_dm***.
 
 ## Binning
-Data binning is a preprocessing technique used to reduce the effects of minor observation errors. I think it is worthwhile applying to some columns of this dataset. I applied binning to *yr_built* and *yr_renovated*. I added the ages and renovation ages of the houses when they were sold. Also, I partitioned these columns to intervals and you can observe this in the below **histograms**. 
+Data binning is a preprocessing technique used to reduce the effects of minor observation errors. I think it is worthwhile applying to some columns of this dataset. I applied binning to *yr_built* and *yr_renovated*. I added the views and renovation views of the houses when they were sold. Also, I partitioned these columns to intervals and you can observe this in the below **histograms**. 
 ''')
 
 df_dm=df.copy()
@@ -368,44 +368,44 @@ df_dm=df.copy()
 # just take the year from the date column
 df_dm['sales_yr']=df_dm['date'].astype(str).str[:4]
 
-# add the age of the buildings when the houses were sold as a new column
-df_dm['age']=df_dm['sales_yr'].astype(int)-df_dm['yr_built']
-# add the age of the renovation when the houses were sold as a new column
-df_dm['age_rnv']=0
-df_dm['age_rnv']=df_dm['sales_yr'][df_dm['yr_renovated']!=0].astype(int)-df_dm['yr_renovated'][df_dm['yr_renovated']!=0]
-df_dm['age_rnv'][df_dm['age_rnv'].isnull()]=0
+# add the view of the buildings when the houses were sold as a new column
+df_dm['view']=df_dm['sales_yr'].astype(int)-df_dm['yr_built']
+# add the view of the renovation when the houses were sold as a new column
+df_dm['view_rnv']=0
+df_dm['view_rnv']=df_dm['sales_yr'][df_dm['yr_renovated']!=0].astype(int)-df_dm['yr_renovated'][df_dm['yr_renovated']!=0]
+df_dm['view_rnv'][df_dm['view_rnv'].isnull()]=0
 
-# partition the age into bins
+# partition the view into bins
 bins = [-2,0,5,10,25,50,75,100,100000]
 labels = ['<1','1-5','6-10','11-25','26-50','51-75','76-100','>100']
-df_dm['age_binned'] = pd.cut(df_dm['age'], bins=bins, labels=labels)
-# partition the age_rnv into bins
+df_dm['view_binned'] = pd.cut(df_dm['view'], bins=bins, labels=labels)
+# partition the view_rnv into bins
 bins = [-2,0,5,10,25,50,75,100000]
 labels = ['<1','1-5','6-10','11-25','26-50','51-75','>75']
-df_dm['age_rnv_binned'] = pd.cut(df_dm['age_rnv'], bins=bins, labels=labels)
+df_dm['view_rnv_binned'] = pd.cut(df_dm['view_rnv'], bins=bins, labels=labels)
 
 # histograms for the binned columns
 f, axes = plt.subplots(1, 2,figsize=(15,5))
-p1=sns.countplot(df_dm['age_binned'],ax=axes[0])
+p1=sns.countplot(df_dm['view_binned'],ax=axes[0])
 for p in p1.patches:
     height = p.get_height()
     p1.text(p.get_x()+p.get_width()/2,height + 50,height,ha="center")   
-p2=sns.countplot(df_dm['age_rnv_binned'],ax=axes[1])
+p2=sns.countplot(df_dm['view_rnv_binned'],ax=axes[1])
 sns.despine(left=True, bottom=True)
 for p in p2.patches:
     height = p.get_height()
     p2.text(p.get_x()+p.get_width()/2,height + 200,height,ha="center")
     
-axes[0].set(xlabel='Age')
+axes[0].set(xlabel='view')
 axes[0].yaxis.tick_left()
 axes[1].yaxis.set_label_position("right")
 axes[1].yaxis.tick_right()
-axes[1].set(xlabel='Renovation Age');
+axes[1].set(xlabel='Renovation view');
 
 st.pyplot(f)
 
 # transform the factor values to be able to use in the model
-df_dm = pd.get_dummies(df_dm, columns=['age_binned','age_rnv_binned'])
+df_dm = pd.get_dummies(df_dm, columns=['view_binned','view_rnv_binned'])
 
 
 st.write(''' ##  Multiple Regression - 1 
@@ -442,11 +442,11 @@ This time I used the data obtained after preprocessing step.
 
 
 features = ['bedrooms','bathrooms','sqft_living','sqft_lot','floors','waterfront',
-            'view','condition','grade','sqft_above','sqft_basement','age_binned_<1', 
-            'age_binned_1-5', 'age_binned_6-10','age_binned_11-25', 'age_binned_26-50',
-            'age_binned_51-75','age_binned_76-100', 'age_binned_>100','age_rnv_binned_<1',
-            'age_rnv_binned_1-5', 'age_rnv_binned_6-10', 'age_rnv_binned_11-25',
-            'age_rnv_binned_26-50', 'age_rnv_binned_51-75', 'age_rnv_binned_>75',
+            'view','condition','grade','sqft_above','sqft_basement','view_binned_<1', 
+            'view_binned_1-5', 'view_binned_6-10','view_binned_11-25', 'view_binned_26-50',
+            'view_binned_51-75','view_binned_76-100', 'view_binned_>100','view_rnv_binned_<1',
+            'view_rnv_binned_1-5', 'view_rnv_binned_6-10', 'view_rnv_binned_11-25',
+            'view_rnv_binned_26-50', 'view_rnv_binned_51-75', 'view_rnv_binned_>75',
             'zipcode','lat','long','sqft_living15','sqft_lot15']
 complex_model_4 = linear_model.LinearRegression()
 complex_model_4.fit(train_data_dm[features],train_data_dm['price'])
@@ -466,3 +466,59 @@ r = evaluation.shape[0]
 evaluation.loc[r] = ['Multiple Regression-4','all features',rmsecm,rtrcm,artrcm,rtecm,artecm,cv]
 #evaluation.sort_values(by = '5-Fold Cross Validation', ascending=False)
 evaluation
+
+# Multiple regression - 1
+# features = ['bedrooms','bathrooms','sqft_living','sqft_lot','floors','zipcode']
+
+
+# Sidebar
+# Header of Specify Input Parameters
+st.sidebar.header('Specify Input Parameters')
+
+def user_input_features():
+    bedrooms = st.sidebar.slider('bedrooms', int(df.bedrooms.min()), int(df.bedrooms.max()), int(df.bedrooms.mean()))
+    bathrooms = st.sidebar.slider('bathrooms', int(df.bathrooms.min()), int(df.bathrooms.max()), int(df.bathrooms.mean()))
+    sqft_living = st.sidebar.slider('sqft_living', int(df.sqft_living.min()), int(df.sqft_living.max()), int(df.sqft_living.mean()))
+    sqft_lot = st.sidebar.slider('sqft_lot', int(df.sqft_lot.min()), int(df.sqft_lot.max()), int(df.sqft_lot.mean()))
+    floors = st.sidebar.slider('floors', int(df.floors.min()), int(df.floors.max()), int(df.floors.mean()))
+    # waterfront = st.sidebar.slider('waterfront', float(df.waterfront.min()), float(df.waterfront.max()), float(df.waterfront.mean()))
+    # view = st.sidebar.slider('view', float(df.view.min()), float(df.view.max()), float(df.view.mean()))
+    # condition = st.sidebar.slider('condition', float(df.condition.min()), float(df.condition.max()), float(df.condition.mean()))
+    # grade = st.sidebar.slider('grade', float(df.grade.min()), float(df.grade.max()), float(df.grade.mean()))
+    # sqft_above = st.sidebar.slider('sqft_above', float(df.sqft_above.min()), float(df.sqft_above.max()), float(df.sqft_above.mean()))
+    # sqft_basement = st.sidebar.slider('sqft_basement', float(df.sqft_basement.min()), float(df.sqft_basement.max()), float(df.sqft_basement.mean()))
+    zipcode = st.sidebar.slider('zipcode', int(df.zipcode.min()), int(df.zipcode.max()), int(df.zipcode.mean()))
+    data = {'bedrooms': bedrooms,
+            'bathrooms': bathrooms,
+            'sqft_living': sqft_living,
+            'sqft_lot': sqft_lot,
+            'floors': floors,
+            # 'waterfront': waterfront,
+            # 'view': view,
+            # 'condition': condition,
+            # 'grade': grade,
+            # 'sqft_above': sqft_above,
+            # 'sqft_basement': sqft_basement,
+            'zipcode': zipcode}
+    features = pd.DataFrame(data, index=[0])
+    return features
+
+df = user_input_features()
+
+# Main Panel
+
+# Print specified input parameters
+st.header('Specified Input parameters')
+st.write(df)
+st.write('---')
+
+
+# Build Regression Model
+# model = RandomForestRegressor()
+# model.fit(X, Y)
+# Apply Model to Make Prediction
+prediction = complex_model_1.predict(df)
+
+st.header('Prediction of Price')
+st.write(prediction)
+st.write('---')
